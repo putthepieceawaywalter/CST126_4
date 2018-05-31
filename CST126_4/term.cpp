@@ -50,6 +50,16 @@ void buildMyArray(term termArray[])
 }
 
 
+// I could also hardcode individual objects an example of how that would look is below
+//term Epic;
+//Epic.name = "Epic";
+//Epic.definition = "An epic is a long user story";
+//Epic.year = 0;
+
+
+
+
+
 void linkMe::add(std::string name)
 {
 	term * node = new term();
@@ -114,6 +124,9 @@ void linkMe::add(std::string name)
 
 
 }
+
+
+
 
 
 void linkMe::print() {

@@ -37,7 +37,12 @@ int main()
 	}
 
 	linkedList->print();
-	
+	term epic;
+	epic.setTerm("Epic");
+	epic.setDefinition("An epic is a large user story.");
+	epic.setYear(0);
+
+	std::cout << epic.name << " " << epic.definition << " " << epic.year;
 
     return 0;
 }

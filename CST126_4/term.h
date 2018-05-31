@@ -20,32 +20,24 @@ public:
 		next = nullptr;
 	}
 
+
+
 	// constructor with all 3 data types
 
-
-
-	bool isMatch(std::string input)
-	{
-		if (name == input)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	}
-
+	std::string getTerm() { return name; }
+	std::string getDefinition() { return definition; }
+	int getYear() { return year; }
+	void setTerm(std::string a) { name = a; }
+	void setDefinition(std::string a) { definition = a; }
+	void setYear(int a) { year = a; }
 //private:
 	std::string definition;
 	std::string name;
 	int year;
 	term * next;
-	// pointer to the next term
 
 };
 
-// create a second class that contains a 
 class linkMe
 {
 public:
