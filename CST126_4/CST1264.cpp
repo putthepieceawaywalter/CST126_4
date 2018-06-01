@@ -29,11 +29,13 @@ int main()
 
 	// send all of the data in the object to the linkedList add function
 	// use string a = termArray[i].getName(); a[0] compared to word in the linked list[0]
-
+	
+	term termArray[SIZE];
+	buildMyArray(termArray[SIZE]);
 
 	for (int i = 0; i < SIZE; i++)
 	{
-		linkedList->add(my_terms[i]);
+		linkedList->add(termArray[i]);
 	}
 
 	linkedList->print();
@@ -42,7 +44,7 @@ int main()
 	epic.setDefinition("An epic is a large user story.");
 	epic.setYear(0);
 
-	std::cout << epic.name << " " << epic.definition << " " << epic.year;
+	//std::cout << epic.name << " " << epic.definition << " " << epic.year;
 
     return 0;
 }

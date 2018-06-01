@@ -4,7 +4,7 @@
 
 void buildMyArray(term termArray[])
 {
-
+	const int SIZE = 10;
 	// change this from an array to 10 named objects!
 	termArray[0].name = "Epic";
 	termArray[0].definition = "An epic is a large user story.";
@@ -60,10 +60,11 @@ void buildMyArray(term termArray[])
 
 
 
-void linkMe::add(std::string name)
+void linkMe::add(term object)
 {
 	term * node = new term();
-	node->name = name;
+	node->name = object.name;
+	node->definition = object.definition;
 	listLength++;
 
 	std::cout << "inserting " << node->name << std::endl;
@@ -77,7 +78,7 @@ void linkMe::add(std::string name)
 
 	else
 	{
-		if (name < head->name)
+		if (object.name < head->name)
 		{
 			node->next = head;
 			head = node;
@@ -87,7 +88,7 @@ void linkMe::add(std::string name)
 		{
 			term * temp = head;
 			term * prev = nullptr;
-			while (temp != nullptr && (name > temp->name))
+			while (temp != nullptr && (object.name > temp->name))
 			{
 				prev = temp;
 				temp = temp->next;
@@ -125,7 +126,18 @@ void linkMe::add(std::string name)
 
 }
 
+void isMatch(std::string input)
+{
+	//iterate through the linked list until you find a match
+		//if(match is found)
+		//{call print with that match}
 
+	//else
+		//std::cout << "Match not found, please check spelling";
+
+	// you could also do a boolean and iterate through the linked list from 
+	// inside the program
+}
 
 
 
@@ -133,7 +145,7 @@ void linkMe::print() {
 	term * head = this->head;
 	int i = 1;
 	while (head) {
-		std::cout << i << ": " << head->name << std::endl;
+		std::cout << head->name << ": " << head->definition << std::endl;
 		head = head->next;
 		i++;
 	}

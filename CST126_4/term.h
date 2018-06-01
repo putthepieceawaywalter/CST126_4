@@ -20,6 +20,13 @@ public:
 		next = nullptr;
 	}
 
+	term(std::string input_name, std::string input_definition, int input_year)
+	{
+		definition = input_definition;
+		name = input_name;
+		year = input_year;
+		next = nullptr;
+	}
 
 
 	// constructor with all 3 data types
@@ -38,25 +45,28 @@ public:
 
 };
 
+
+
 class linkMe
 {
 public:
-	void add(std::string name);
+	void add(term termArray);
 	void print();
 	// functions
 	// default constructor
 	// delete function (deletes the list)
 	// add method that adds the list in order
 	// a function that calls the print function in the term struct
-	// a function that finds a term by name and then prints it
+	// a function that finds a term by name and then prints it by calling the match function in the term struct
 
 private:
 	// data
 	int listLength;
 	term * head;
+
 };
 
-void buildMyArray(term termArray[]);
+void buildMyArray(term termArray);
 
 
 
