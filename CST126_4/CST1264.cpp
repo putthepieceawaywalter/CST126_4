@@ -5,33 +5,44 @@
 #include <iostream>
 #include <iomanip>
 #include "term.h"
+#pragma once
+
+
+// I used the flowers.cpp for the list linking function and the print function (found on the cst126
+// google drive)
+
+// I used pragma once to ensure that my program is only compiled once
+// Below is wikipedia's definition of pragma once.  It seemed smarter to reference a more technical source than
+// to put in my own definition. (for what its worth though pragma once will ensure that a source file is included only once
+// in compilation and will have several advantages listed below)
+
+
+// In the C and C++ programming languages, #pragma once is a non-standard but widely
+// supported preprocessor directive designed to cause the current source file to be 
+// included only once in a single compilation. Thus, #pragma once serves the same 
+// purpose as #include guards, but with several advantages,
+// including: less code, avoiding name clashes, and improved compile speed.
 
 
 int main()
 {
+	term epic = { "Epic", "epics are long stories", 2004 };
+	term timebox = {"Timebox", "A timebox is an agreed on period of time when a team works towards a goal.", 1988};
+	term iteration = { "Iteration", "An iteration is a timebox during which development takes place." , 1991 };
+	term kanban = { "Kanban", "The Kanban Method is a means to design, manage, and improve flow systems for knowledge work. " , 2004 };
+	term refactoring = { "Refactoring", "Refactoring consists of improving the program's code while maintaining its behavior", 1984 };
+	term scrum = { "Scrum", "Scrum is a process framework used to manage product development and other knowledge work." , 1986 };
+	term team = { "Team", "A team in Agile is a small group of people assigned to the same project or effort.", 2004 };
+	term story_mapping = { "Story Mapping",  "Story mapping consists of ordering user stories along two independent dimensions" , 2005 };
+	term pair_programming = { "Pair Programming",  "Pair programming consists of two programmers sharing a single workstation." , 1992 };
+	term mob_programming = { "Mob Programming", "Where the whole team works on the same thing at the same time in the same place." , 2011 };
 
-	// I used the flowers.cpp file from the google drive to help make this program
-	const int SIZE = 10;
-	std::string my_terms[SIZE] =
-	{
-		"Epic", "Facilitation", "Iteration", "Scrum Master", "Refactoring", "Scrum",
-		"Team", "Story Mapping", "Pair Programming", "Mob Programming"
-	};
-
-
-
-	// 1. make a struct
-	// 2. make a linked list of those struts
-	// 3. hard code the dictionary into the main program
-	// flowers.cpp which is saved on your desktop is a good place to start with how this program is supposed to work.
-	// 
-	linkMe * linkedList = new linkMe();
-
-	// send all of the data in the object to the linkedList add function
-	// use string a = termArray[i].getName(); a[0] compared to word in the linked list[0]
 	
-	term termArray[SIZE];
-	buildMyArray(termArray[SIZE]);
+	const int SIZE = 10;
+	term termArray[SIZE] = { epic, timebox, iteration, kanban, refactoring, scrum,
+		team, story_mapping, pair_programming, mob_programming };
+
+	linkMe * linkedList = new linkMe();
 
 	for (int i = 0; i < SIZE; i++)
 	{
@@ -39,13 +50,10 @@ int main()
 	}
 
 	linkedList->print();
-	term epic;
-	epic.setTerm("Epic");
-	epic.setDefinition("An epic is a large user story.");
-	epic.setYear(0);
+	
+	search(linkedList);
 
-	//std::cout << epic.name << " " << epic.definition << " " << epic.year;
-
+	linkedList->ruinerOfAllThings();
+	
     return 0;
 }
-

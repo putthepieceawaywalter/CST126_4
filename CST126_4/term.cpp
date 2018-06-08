@@ -1,84 +1,29 @@
 #include "stdafx.h"
 #include <iostream>
 #include "term.h"
-
-void buildMyArray(term termArray[])
-{
-	const int SIZE = 10;
-	// change this from an array to 10 named objects!
-	termArray[0].name = "Epic";
-	termArray[0].definition = "An epic is a large user story.";
-	termArray[0].year = 0; // fill in with correct year
-
-	termArray[1].name = "Facilitation";
-	termArray[1].definition = "A facilitator is a person who is given the role of conducting the meeting.";
-	termArray[1].year = 0; // fill in with correct year
-
-	termArray[2].name = "Iteration";
-	termArray[2].definition = "An iteration is a timebox during which development takes place.";
-	termArray[2].year = 0; // fill in with correct year
-
-	termArray[3].name = "Scrum Master";
-	termArray[3].definition = "The scrum master is responsible for ensuring the team lives agile values and principles.";
-	termArray[3].year = 0; // fill in with correct year later
-
-	termArray[4].name = "Refactoring";
-	termArray[4].definition = "Refactoring consists of improving the program's code while maintaining its behavior";
-	termArray[4].year = 0; // fill in with correct year
-
-	termArray[5].name = "Scrum";
-	termArray[5].definition = "Scrum is a process framework used to manage product development and other knowledge work.";
-	termArray[5].year = 0; // fill in with correct year
-
-	termArray[6].name = "Team";
-	termArray[6].definition = "A team in Agile is a small group of people assigned to the same project or effort.";
-	termArray[6].year = 0; // fill in with correct year
-
-	termArray[7].name = "Story Mapping";
-	termArray[7].definition = "Story mapping consists of ordering user stories along two independent dimensions";
-	termArray[7].year = 0; // fill in with correct year
-
-	termArray[8].name = "Pair Programming";
-	termArray[8].definition = "Pair programming consists of two programmers sharing a single workstation.";
-	termArray[8].year = 0; // fill in with correct year
-
-	termArray[9].name = "Mob Programming";
-	termArray[9].definition = "Where the whole team works on the same thing at the same time in the same place.";
-	termArray[9].year = 0; // fill in with correct year
-
-
-}
-
-
-// I could also hardcode individual objects an example of how that would look is below
-//term Epic;
-//Epic.name = "Epic";
-//Epic.definition = "An epic is a long user story";
-//Epic.year = 0;
-
-
+#include <string>
+#include <cctype>
+#include <iomanip>
+#pragma once
 
 
 
 void linkMe::add(term object)
 {
 	term * node = new term();
-	node->name = object.name;
-	node->definition = object.definition;
+	node->setTerm(object.getTerm());
+	node->setDefinition(object.getDefinition());
+	node->setYear(object.getYear());
 	listLength++;
+	std::cout << "inserting " << object.getTerm() << std::endl;
 
-	std::cout << "inserting " << node->name << std::endl;
-
-	// this is the if statement for the first word that is added
 	if (head == nullptr)
 	{
 		head = node;
 	}
-
-
 	else
 	{
-		if (object.name < head->name)
+		if (object.getTerm() < head->getTerm())
 		{
 			node->next = head;
 			head = node;
@@ -88,7 +33,7 @@ void linkMe::add(term object)
 		{
 			term * temp = head;
 			term * prev = nullptr;
-			while (temp != nullptr && (object.name > temp->name))
+			while (temp != nullptr && (object.getTerm() > temp->getTerm()))
 			{
 				prev = temp;
 				temp = temp->next;
@@ -98,59 +43,102 @@ void linkMe::add(term object)
 		}
 	}
 
-	// 3 possible if statements
-		// if the word it is inserting goes at the head of the list
-			// if the first letter of the input word is < the first letter of my_terms[i] 
-				// next = head; head = input word;
-
-
-
-		// if the word that is being inserted goes in the middle of the list
-			// while the first letter of the input word is > the first letter of my_terms[i] 
-			// advance to the next array until it finds a node where the first letter is > than
-			// the first letter of the input word
-			// once it finds where in the list it goes it should adjust the "next" of the preceding
-			// word to point  towards the input word, the next of the input word gets the 
-			// subsequent word
-
-		// if the words that is being insterted goes at the end of the list
-			// (if the function iterates through the list until next == nullptr;
-			// next of the current last word in the list points to the input word
-			// the next of the input word = nullptr 
-	// The words need to be sorted alphabetically
-	
-	// is there a function for testing alphabetical??
-
-
-
-
 }
 
-void isMatch(std::string input)
+void linkMe::ruinerOfAllThings()
 {
-	//iterate through the linked list until you find a match
-		//if(match is found)
-		//{call print with that match}
-
-	//else
-		//std::cout << "Match not found, please check spelling";
-
-	// you could also do a boolean and iterate through the linked list from 
-	// inside the program
+	term * temp;
+	term * head = this->head;
+	while (head->next != nullptr)
+	{
+		temp = head;
+		head = head->next;
+		delete temp;
+	}
+	delete head;
+	std::cout << "list succesfully deleted" << std::endl;
 }
 
+void linkMe::isMatch(std::string input)
+{
 
+	term * matchCheck;
+	matchCheck = head;
+	std::string objectWord;
+	objectWord = matchCheck->getTerm();
+	objectWord = makeLower(objectWord);
+	while (objectWord != input && matchCheck->next != nullptr)
+	{
+		matchCheck = matchCheck->next;
+		objectWord = matchCheck->getTerm();
+		objectWord = makeLower(objectWord);
+		
+	}
+	if (objectWord == input)
+	{
+		matchSuccess(matchCheck);
+	}
+	else
+	{
+		std::cout << "There is no match in the dictionary for your word" << '\n' << std::endl;
+	}
+
+}
+
+void linkMe::matchSuccess(term * object)
+{
+	std::cout  << object->getTerm() << "  definition: " << object->getDefinition() << '\n' << "First used: "
+		<< object->getYear() << '\n';
+}
 
 void linkMe::print() {
 	term * head = this->head;
 	int i = 1;
 	while (head) {
-		std::cout << head->name << ": " << head->definition << std::endl;
+		std::cout << std::setw(15) << head->getTerm() << ": " << head->getDefinition() << std::endl;
 		head = head->next;
 		i++;
 	}
 	std::cout << std::endl;
 }
 
+std::string makeLower(std::string input)
+{
+	int i = 0;
+	std::string apple;
+	while (i < input.size())
+	{
+		apple += std::tolower(input[i]);
+		i++;
+	}
+	return apple;
+}
 
+void search(linkMe * linkedList)
+{	
+	
+	std::cout << "Enter the Agile programming term you'd like to search for" << std::endl;
+	std::string input;
+	std::getline(std::cin, input);
+	input = makeLower(input);
+	if (std::empty(input))
+	{
+		std::cout << '\n' << "You didn't enter anything!" << '\n';
+		
+	}
+	else
+	{
+		linkedList->isMatch(input);
+	}
 
+	std::cout << '\n' << "Would you like to run the program again? Type y for yes or n for no" << std::endl;
+	char a;
+	std::cin >> a;
+	if (a != 'n')
+	{// I purposfully only coded a situation for when the user types in n to handle accidental 
+		// typos, n exits, everything else runs the program again.
+		std::cin.clear();
+		std::cin.ignore();
+		search(linkedList);
+	}
+}
